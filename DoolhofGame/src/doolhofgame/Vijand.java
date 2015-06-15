@@ -13,7 +13,7 @@ import javax.swing.JComponent;
  *
  * @author Karen
  */
-public class Vijand extends JComponent {
+public class Vijand extends SpelItem {
 
     private int positieX, positieY;
     private Image image, imgR, imgL, imgU, imgD;
