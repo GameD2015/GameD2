@@ -16,7 +16,7 @@ public class SpelItem extends JComponent {
 
     protected Image image;
     protected boolean isPickable = false;
-    protected Pad pad;
+    protected Vakje pad;
     protected Speler speler;
   
     
@@ -34,6 +34,19 @@ public class SpelItem extends JComponent {
     public void setSpeler(Speler speler) {
         this.speler = speler;
     }
+
+    public Vakje getPad() {
+        return pad;
+    }
+    
+    
+
+    public void setPad(Vakje pad) {
+        this.pad = pad;
+    }
+
+ 
+    
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

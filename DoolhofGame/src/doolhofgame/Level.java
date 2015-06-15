@@ -36,7 +36,6 @@ public class Level extends JPanel implements KeyListener {
         start();
 
     }
-   
 
     private void start() {
 
@@ -88,7 +87,7 @@ public class Level extends JPanel implements KeyListener {
 
     private void restart() {
 
-        timer.setTeller(0);
+        timer.setTeller(30);
         timer.setBounds(600, 10, 100, 30);
         timer.setVisible(true);
         add(timer);

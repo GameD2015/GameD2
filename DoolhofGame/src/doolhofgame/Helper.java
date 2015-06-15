@@ -17,21 +17,26 @@ import javax.swing.ImageIcon;
  */
 public class Helper extends SpelItem {
 
-    private ArrayList<Vakje> popVakjes;
-    private Stack<Vakje> weg;
-
     public Helper() {
         image = new ImageIcon(getClass().getResource("/resources/imgHelp2.png")).getImage();
-        popVakjes = new ArrayList<>();
-        weg = new Stack<>();
     }
 
-    
     @Override
     public void voerActie() {
         super.voerActie();
-        boolean backtracking = backtracking(this.pad, weg);
-        
+        actie();
+    }
+
+    public void actie() {
+        Backtracking backtracking = new Backtracking();
+        boolean gevonden = backtracking.wegVinden(this.pad, new Vriend(),null );
+         backtracking.visitedVakjesWeg(this.pad);
+         
+        if (gevonden == true) {
+            Stack<Vakje> weg = backtracking.getWeg();
+            printWeg(weg);
+           
+        }
     }
 
     protected void paintComponent(Graphics g) {
@@ -39,10 +44,10 @@ public class Helper extends SpelItem {
         g.drawImage(image, 0, 0, this);
     }
 
-    private void printStack(Stack<Vakje> weg) {
+    private void printWeg(Stack<Vakje> weg) {
 
         Image imageWeg = new ImageIcon(getClass().getResource("/resources/pad2.png")).getImage();
-
+        
         for (Iterator<Vakje> it = weg.iterator(); it.hasNext();) {
             Vakje vk = it.next();
             if (vk.getSpelitem() == null) {
@@ -55,63 +60,11 @@ public class Helper extends SpelItem {
 
     }
 
-    private boolean backtracking(Vakje pHelper, Stack<Vakje> weg) {
-        boolean gevonden = false;
-        SpelItem spelitem = pHelper.getSpelitem();
-        pHelper.isVisited = true;
-        weg.add(pHelper);
-        if (spelitem instanceof Vriend) {
-            gevonden = true;
-            printStack(weg);
-            return gevonden;
-
-        } else {
-
-            if (pHelper.getNorth() != null) {
-                if ((pHelper.getNorth().isWalkable) && (!pHelper.getNorth().isVisited)) {
-                    gevonden = backtracking(pHelper.getNorth(), weg);
-                    if (gevonden == false) {
-                        Vakje pop = weg.pop();
-                        popVakjes.add(pop);
-                    }
-                }
-            }
-            if (pHelper.getEast() != null) {
-                if ((pHelper.getEast().isWalkable) && (!pHelper.getEast().isVisited)) {
-                    gevonden = backtracking(pHelper.getEast(), weg);
-                    if (gevonden == false) {
-                        Vakje pop = weg.pop();
-                        popVakjes.add(pop);
-                    }
-                }
-            }
-            if (pHelper.getSouth() != null) {
-                if ((pHelper.getSouth().isWalkable) && (!pHelper.getSouth().isVisited)) {
-                    gevonden = backtracking(pHelper.getSouth(), weg);
-                    if (gevonden == false) {
-                        Vakje pop = weg.pop();
-                        popVakjes.add(pop);
-                    }
-                }
-            }
-            if (pHelper.getWest() != null) {
-                if ((pHelper.getWest().isWalkable) && (!pHelper.getWest().isVisited)) {
-                    gevonden = backtracking(pHelper.getWest(), weg);
-                    if (gevonden == false) {
-                        Vakje pop = weg.pop();
-                        popVakjes.add(pop);
-                    }
-                }
-            }
-            return gevonden;
-        }
-    }
-
     public void setPad(Pad pad) {
         this.pad = pad;
     }
 
-    public Pad getPad() {
+    public Vakje getPad() {
         return pad;
     }
 }

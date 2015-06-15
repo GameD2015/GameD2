@@ -4,6 +4,8 @@
  */
 package doolhofgame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.*;
@@ -14,55 +16,56 @@ import javax.swing.JPanel;
  * @author Karen
  */
 public class Doolhof extends JPanel {
-
+    
     private final int X = 26;
     private final int Y = 20;
     private Vakje[][] matrix;
     private ArrayList<File> files;
     private Speler speler = null;
+    private Vijand vijand = null;
     private Level level;
-
+    
     public Doolhof(Level level) {
         this.level = level;
-
+        
         setSize(780, 600);
         setLayout(null);
         File file = getFile(level.getLevelNr());
-
+        
         fillMatrix(file);
-
+        
         addBuren();
-
+        
         addVakjes();
-
+        
     }
-
+    
     public Doolhof(int LevelNr) {
-       
+        
         setSize(780, 600);
         setLayout(null);
         File file = getFile(LevelNr);
-
+        
         fillMatrix(file);
-
+        
         addBuren();
-
+        
         addVakjes();
-
+        
     }
-
+    
     private File getFile(int level) {
-     
+        
         files = new ArrayList<>();
         files.add(new File("doolhof1.txt"));
         files.add(new File("doolhof2.txt"));
         files.add(new File("doolhof3.txt"));
-       
-        File file = files.get(level-1);
+        
+        File file = files.get(level - 1);
         return (file);
-
+        
     }
-
+    
     private void fillMatrix(File file) {
         FileReader arch;
         StringTokenizer st;
@@ -110,25 +113,30 @@ public class Doolhof extends JPanel {
                         Pad pHelper = new Pad(helper);
                         helper.setPad(pHelper);
                         matrix[i][j] = pHelper;
+                    } else if (num == 7) {
+                        vijand = new Vijand();
+                        Pad pVijand = new Pad(vijand);
+                        vijand.setPad(pVijand);
+                        matrix[i][j] = pVijand;
                     }
-
+                    
                 }
                 if (i < X - 1) {
                     linea = buff.readLine();
                     st = new StringTokenizer(linea);
                 }
             }
-
+            
             buff.close();
             arch.close();
         } catch (IOException ioe) {
             System.out.println("matrix vullen is fout gegaan" + ioe);
-
+            
         }
     }
-
+    
     private void addVakjes() {
-
+        
         for (int i = 0; i < X; i++) {
             for (int j = 0; j < Y; j++) {
                 matrix[i][j].setPosX(i * 30);
@@ -138,7 +146,7 @@ public class Doolhof extends JPanel {
             }
         }
     }
-
+    
     private void addBuren() {
         Vakje nullVakje = new Vakje();
         nullVakje = null;
@@ -172,9 +180,10 @@ public class Doolhof extends JPanel {
             }
         }
     }
-
+    
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
+        
         if (keyCode == KeyEvent.VK_LEFT) {
             speler.move(3);
         }
@@ -186,11 +195,14 @@ public class Doolhof extends JPanel {
         }
         if (keyCode == KeyEvent.VK_DOWN) {
             speler.move(2);
-
+            
         }
         if (keyCode == KeyEvent.VK_S) {
             speler.schietMuur(speler.getDir());
-
+            
+        }
+        if (keyCode == KeyEvent.VK_V) {
+            vijand.move();
         }
     }
 }

@@ -43,6 +43,16 @@ public class Vakje extends JComponent {
         this.speler = speler;
     }
 
+    public Speler getSpeler() {
+        return speler;
+    }
+
+    public void setIsVisited(boolean isVisited) {
+        this.isVisited = isVisited;
+    }
+    
+    
+
     public SpelItem getSpelitem() {
         return spelitem;
     }

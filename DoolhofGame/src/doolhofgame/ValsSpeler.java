@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 public class ValsSpeler extends SpelItem {
 
     private Level level;
-    
+
     public ValsSpeler() {
         image = new ImageIcon(getClass().getResource("/resources/clockY.png")).getImage();
 
@@ -35,7 +35,6 @@ public class ValsSpeler extends SpelItem {
     private void actie() {
         level.timer.addTime(20);
         level.timer.repaint();
-        System.out.println(level.timer.getTeller());
     }
 
     protected void paintComponent(Graphics g) {

@@ -13,7 +13,7 @@ import javax.swing.*;
  * @author Karen
  */
 public class Teller extends JPanel {
-
+    
     private int teller;
     private javax.swing.Timer timer;
     private Level level;
