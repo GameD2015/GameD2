@@ -6,25 +6,37 @@ package doolhofgame;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 
 /**
  *
  * @author Karen
  */
-public class Vijand extends SpelItem {
+public class Vijand extends SpelItem implements Runnable {
 
     private int positieX, positieY;
     private Image imgR, imgL, imgU, imgD;
     private int dir;// 0:up 1:right 2:down 3:left
+    private Thread vijand;
+    private boolean doorgaan;
+    private Doolhof doolhof;
 
     public Vijand() {
         image = new ImageIcon(getClass().getResource("/resources/vjandR.png")).getImage();
         loadImages();
+        this.vijand = new Thread(this);
+        this.doorgaan = true;
+    }
 
+    public Vijand(Doolhof doolhof) {
+        image = new ImageIcon(getClass().getResource("/resources/vjandR.png")).getImage();
+        loadImages();
+        this.vijand = new Thread(this);
+        this.doorgaan = true;
+        this.doolhof = doolhof;
     }
 
     private void loadImages() {
@@ -41,76 +53,48 @@ public class Vijand extends SpelItem {
         pad.setSpelitem(this);
     }
 
-    public boolean canMove(Vakje buur) {
-        boolean result = false;
-        if (buur == null) {
-            result = false;
-        } else {
-            if (buur.isWalkable) {
-                result = true;
-            }
-        }
-
-        return result;
-    }
-
-    private Vakje getBuur(int d) {
-        Vakje buur = this.pad.getEast();
-        if (d == 0) {
-            buur = this.pad.getNorth();
-            setDir(0);
-        } else {
-            if (d == 1) {
-                buur = this.pad.getEast();
-                setDir(1);
-            } else {
-                if (d == 2) {
-                    buur = this.pad.getSouth();
-                    setDir(2);
-                } else {
-                    if (d == 3) {
-                        buur = this.pad.getWest();
-                        setDir(3);
-                    }
-                }
-            }
-        }
-        return buur;
-    }
-
     public int getDir() {
         return getDir();
     }
 
-    public void setDir(int dir) {
-        this.dir = dir;
+    @Override
+    public void setImage(Image image) {
+        super.setImage(image);
     }
 
-    public void move() {
-        Backtracking backtracking = new Backtracking();
-        boolean gevonden = backtracking.wegVinden(this.pad, null, new Speler());
-        backtracking.visitedVakjesWeg(this.pad);
-        if (gevonden == true) {
-            Stack<Vakje> weg = backtracking.getWeg();
-           
-            for (Iterator<Vakje> it = weg.iterator(); it.hasNext();) {
-                Vakje vk = it.next();
-                if (vk.getSpelitem() == null) {
-                    vk.setSpelitem(this);
-                    vk.repaint();
-                    
-                    //swapPad(this.pad, vk);
-                }
-            }
-            
+    public void setDir(int dir) {
+        this.dir = dir;
+        if (dir == 1) {
+            setImage(imgR);
+        }
+        if (dir == 3) {
+            setImage(imgL);
+        }
+        if (dir == 0) {
+            setImage(imgU);
+        }
+        if (dir == 2) {
+            setImage(imgD);
         }
     }
 
-    private void swapPad(Vakje from, Vakje to) {
+    public void kijkBuur(Vakje first, Vakje next) {
+        if (next == first.getNorth()) {
+            setDir(0);
+        } else if (next == first.getEast()) {
+            setDir(1);
+        } else if (next == first.getSouth()) {
+            setDir(2);
+        } else if (next == first.getWest()) {
+            setDir(3);
+        }
+    }
+
+    private void swapPad(Vakje from, Vakje to, SpelItem sp) {
 
         to.repaint();
         setPad(to);
-        from.setSpeler(null);
+        from.setSpelitem(sp);
         from.repaint();
         to.repaint();
     }
@@ -118,5 +102,50 @@ public class Vijand extends SpelItem {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
+    }
+
+    @Override
+    public void run() {
+
+        try {
+            do {
+                Backtracking backtracking = new Backtracking();
+                if (backtracking.wegVinden(this.pad, null, new Speler()) == true) {
+                    backtracking.visitedVakjesWeg(this.pad);
+                    Stack<Vakje> weg = backtracking.getWeg();
+                    for (Iterator<Vakje> it = weg.iterator(); it.hasNext();) {
+                        Vakje vk = it.next();
+                        if (vk.getSpelitem() != null) {
+                            SpelItem spelitem = vk.getSpelitem();
+                            swapPad(this.pad, vk, spelitem);
+                        } else {
+                            swapPad(this.pad, vk, null);
+                        }
+                        slaap(100);
+                        if (this.pad.getSpeler() != null) {
+                            doorgaan = false;
+                            doolhof.level.setGameOver(true);
+                        }
+                        
+                    }
+                }
+            } while (doorgaan);
+        } catch (IllegalThreadStateException ex) {
+            System.out.println("error " + ex);
+        }
+    }
+
+    public void slaap(int millisec) {
+        try {
+            Thread.sleep(millisec);
+
+        } catch (InterruptedException ex) {
+            System.out.println("error methode slaap" + ex);
+        }
+
+    }
+
+    public void begin() {
+        vijand.start();
     }
 }

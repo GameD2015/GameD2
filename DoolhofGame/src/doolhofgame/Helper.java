@@ -6,7 +6,6 @@ package doolhofgame;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 import javax.swing.ImageIcon;
@@ -28,14 +27,16 @@ public class Helper extends SpelItem {
     }
 
     public void actie() {
+        
         Backtracking backtracking = new Backtracking();
-        boolean gevonden = backtracking.wegVinden(this.pad, new Vriend(),null );
-         backtracking.visitedVakjesWeg(this.pad);
-         
+        boolean gevonden = backtracking.wegVinden(this.pad, new Vriend(), null);
+        
+
         if (gevonden == true) {
             Stack<Vakje> weg = backtracking.getWeg();
+            backtracking.visitedVakjesWeg(this.pad);
             printWeg(weg);
-           
+            
         }
     }
 
@@ -59,7 +60,6 @@ public class Helper extends SpelItem {
         }
 
     }
-
     public void setPad(Pad pad) {
         this.pad = pad;
     }

@@ -232,6 +232,7 @@ public class Level extends JPanel implements KeyListener {
                 label.setVisible(true);
                 opnieuw.setVisible(true);
                 doolhof.setVisible(true);
+                //doolhof.vijand.begin();
                 timer.startTimer();
             }
             if ((e.getSource() == startknop) && (levelNr > 1)) {
@@ -248,6 +249,7 @@ public class Level extends JPanel implements KeyListener {
                 removeAll();
                 repaint();
                 restart();
+                //doolhof.vijand.begin();
                 timer.startTimer();
             }
             if (e.getSource() == sluiten) {

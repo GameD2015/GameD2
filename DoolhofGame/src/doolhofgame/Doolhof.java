@@ -4,8 +4,6 @@
  */
 package doolhofgame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.*;
@@ -22,8 +20,8 @@ public class Doolhof extends JPanel {
     private Vakje[][] matrix;
     private ArrayList<File> files;
     private Speler speler = null;
-    private Vijand vijand = null;
-    private Level level;
+    public Vijand vijand = null;
+    public Level level;
     
     public Doolhof(Level level) {
         this.level = level;
@@ -114,7 +112,7 @@ public class Doolhof extends JPanel {
                         helper.setPad(pHelper);
                         matrix[i][j] = pHelper;
                     } else if (num == 7) {
-                        vijand = new Vijand();
+                        vijand = new Vijand(this);
                         Pad pVijand = new Pad(vijand);
                         vijand.setPad(pVijand);
                         matrix[i][j] = pVijand;
@@ -202,7 +200,7 @@ public class Doolhof extends JPanel {
             
         }
         if (keyCode == KeyEvent.VK_V) {
-            vijand.move();
+            vijand.begin();
         }
     }
 }

@@ -38,6 +38,10 @@ public class SpelItem extends JComponent {
     public Vakje getPad() {
         return pad;
     }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
     
     
 
