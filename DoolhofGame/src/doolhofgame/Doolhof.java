@@ -103,7 +103,7 @@ public class Doolhof extends JPanel {
                         bazooka.setPad(pBazooka);
                         matrix[i][j] = pBazooka;
                     } else if (num == 5) {
-                        ValsSpeler valsp = new ValsSpeler(level);
+                        ValsSpeler valsp = new ValsSpeler(this);
                         Pad pVspeler = new Pad(valsp);
                         matrix[i][j] = pVspeler;
                     } else if (num == 6) {

@@ -13,15 +13,15 @@ import javax.swing.ImageIcon;
  */
 public class ValsSpeler extends SpelItem {
 
-    private Level level;
+    private Doolhof doolhof;
 
     public ValsSpeler() {
         image = new ImageIcon(getClass().getResource("/resources/clockY.png")).getImage();
 
     }
 
-    public ValsSpeler(Level level) {
-        this.level = level;
+    public ValsSpeler(Doolhof doolhof) {
+        this.doolhof = doolhof;
         image = new ImageIcon(getClass().getResource("/resources/clockY.png")).getImage();
 
     }
@@ -33,8 +33,8 @@ public class ValsSpeler extends SpelItem {
     }
 
     private void actie() {
-        level.timer.addTime(20);
-        level.timer.repaint();
+        doolhof.level.timer.addTime(20);
+        doolhof.level.timer.repaint();
     }
 
     protected void paintComponent(Graphics g) {
