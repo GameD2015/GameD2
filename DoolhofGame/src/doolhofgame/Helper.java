@@ -33,7 +33,7 @@ public class Helper extends SpelItem {
         doolhof.vijand.begin();
     }
 
-    public void actie() {
+    private void actie() {
         
         Backtracking backtracking = new Backtracking();
         boolean gevonden = backtracking.wegVinden(this.pad, new Vriend(), null);

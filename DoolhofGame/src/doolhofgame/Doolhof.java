@@ -38,27 +38,27 @@ public class Doolhof extends JPanel {
 
     }
 
-    public void setSpeler(Speler speler) {
-        if(speler == null){
-            level.setGameOver(true);
-        }
-    }
-    
-    
-
-    public Doolhof(int LevelNr) {
-
-        setSize(780, 600);
-        setLayout(null);
-        File file = getFile(LevelNr);
-
-        fillMatrix(file);
-
-        addBuren();
-
-        addVakjes();
-
-    }
+//    public void setSpeler(Speler speler) {
+//        if(speler == null){
+//            level.setGameOver(true);
+//        }
+//    }
+//    
+//    
+//
+//    public Doolhof(int LevelNr) {
+//
+//        setSize(780, 600);
+//        setLayout(null);
+//        File file = getFile(LevelNr);
+//
+//        fillMatrix(file);
+//
+//        addBuren();
+//
+//        addVakjes();
+//
+//    }
 
     private File getFile(int level) {
 
