@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +61,11 @@ public class Speler extends JComponent {
         if (gepakt != null) {
             gepakt.voerActie(dir);
             setGepakt(null);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "U hebt geen bazooka!",
+                    "Melding",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 

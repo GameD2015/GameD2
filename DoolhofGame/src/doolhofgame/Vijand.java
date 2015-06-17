@@ -6,7 +6,6 @@ package doolhofgame;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 import javax.swing.ImageIcon;
@@ -23,16 +22,17 @@ public class Vijand extends SpelItem implements Runnable {
     private Thread vijand;
     private boolean doorgaan;
     private Doolhof doolhof;
+    private int delay = 100;
 
     public Vijand() {
-        image = new ImageIcon(getClass().getResource("/resources/vjandR.png")).getImage();
-        loadImages();
+        image = new ImageIcon(getClass().getResource("/resources/vjandDicht.png")).getImage();
+        //loadImages();
         this.vijand = new Thread(this);
         this.doorgaan = true;
     }
 
     public Vijand(Doolhof doolhof) {
-        image = new ImageIcon(getClass().getResource("/resources/vjandR.png")).getImage();
+        image = new ImageIcon(getClass().getResource("/resources/vjandDicht.png")).getImage();
         loadImages();
         this.vijand = new Thread(this);
         this.doorgaan = true;
@@ -108,11 +108,12 @@ public class Vijand extends SpelItem implements Runnable {
     public void run() {
 
         try {
+            image = imgD;
             do {
                 Backtracking backtracking = new Backtracking();
                 if (backtracking.wegVinden(this.pad, null, new Speler()) == true) {
                     backtracking.visitedVakjesWeg(this.pad);
-                    Stack<Vakje> weg = backtracking.getWeg();
+                    Stack<Vakje> weg = backtracking.getVijandWeg();
                     for (Iterator<Vakje> it = weg.iterator(); it.hasNext();) {
                         Vakje vk = it.next();
                         if (vk.getSpelitem() != null) {
@@ -121,12 +122,12 @@ public class Vijand extends SpelItem implements Runnable {
                         } else {
                             swapPad(this.pad, vk, null);
                         }
-                        slaap(100);
+                        slaap(delay);
                         if (this.pad.getSpeler() != null) {
                             doorgaan = false;
                             doolhof.level.setGameOver(true);
                         }
-                        
+
                     }
                 }
             } while (doorgaan);
@@ -146,6 +147,10 @@ public class Vijand extends SpelItem implements Runnable {
     }
 
     public void begin() {
-        vijand.start();
+        try {
+            vijand.start();
+        } catch (IllegalThreadStateException ie) {
+            System.out.println("error methode begin" + ie);
+        }
     }
 }

@@ -23,6 +23,7 @@ public class Level extends JPanel implements KeyListener {
     private JButton opnieuw, startknop, sluiten;
     private ImageIcon image1, image2;
     private boolean keyIsenabled;
+    private String instructies = "Pijltje Up = omhoog \nPijltje Down = omlaag \nPijltje Right = rechts \nPijltije Left = links \nS = schieten ";
 
     public Level() {
 
@@ -169,6 +170,7 @@ public class Level extends JPanel implements KeyListener {
 
     private void gameOver() {
 
+        
         imgPage = new JLabel(image2);
         imgPage.setBounds(0, 50, 900, 650);
         imgPage.setVisible(true);
@@ -214,6 +216,7 @@ public class Level extends JPanel implements KeyListener {
         this.repaint();
         //setLevelNr(1);
         gameOver();
+        this.repaint();
 
 
     }
@@ -226,13 +229,13 @@ public class Level extends JPanel implements KeyListener {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == startknop) {
+                JOptionPane.showMessageDialog(null, instructies, "Spel Instructies", JOptionPane.INFORMATION_MESSAGE);
                 timer.setTeller(30);
                 timer.setVisible(true);
                 startknop.setVisible(false);
                 label.setVisible(true);
                 opnieuw.setVisible(true);
                 doolhof.setVisible(true);
-                //doolhof.vijand.begin();
                 timer.startTimer();
             }
             if ((e.getSource() == startknop) && (levelNr > 1)) {
@@ -249,7 +252,6 @@ public class Level extends JPanel implements KeyListener {
                 removeAll();
                 repaint();
                 restart();
-                //doolhof.vijand.begin();
                 timer.startTimer();
             }
             if (e.getSource() == sluiten) {

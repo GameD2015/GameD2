@@ -21,6 +21,7 @@ public class Main extends JFrame {
         setSize(900, 700);
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setBackground(Color.BLACK);
         setLocationRelativeTo(null);
 

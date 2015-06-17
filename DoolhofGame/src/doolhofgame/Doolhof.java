@@ -199,8 +199,5 @@ public class Doolhof extends JPanel {
             speler.schietMuur(speler.getDir());
             
         }
-        if (keyCode == KeyEvent.VK_V) {
-            vijand.begin();
-        }
     }
 }

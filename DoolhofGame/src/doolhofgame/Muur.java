@@ -47,7 +47,11 @@ public class Muur extends Vakje {
         if (spelitem != null) {
             image = spelitem.image;
         } else {
-            image = new ImageIcon(getClass().getResource("/resources/muur.png")).getImage();
+            if (this.isWalkable) {
+                setWalkableImage();
+            } else {
+                image = new ImageIcon(getClass().getResource("/resources/muur.png")).getImage();
+            }
         }
     }
 

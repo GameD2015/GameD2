@@ -31,13 +31,13 @@ public class Helper extends SpelItem {
         Backtracking backtracking = new Backtracking();
         boolean gevonden = backtracking.wegVinden(this.pad, new Vriend(), null);
         
-
         if (gevonden == true) {
-            Stack<Vakje> weg = backtracking.getWeg();
+            Stack<Vakje> weg = backtracking.getHelperWeg();
             backtracking.visitedVakjesWeg(this.pad);
             printWeg(weg);
             
         }
+        
     }
 
     protected void paintComponent(Graphics g) {

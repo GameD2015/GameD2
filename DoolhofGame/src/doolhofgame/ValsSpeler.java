@@ -35,6 +35,7 @@ public class ValsSpeler extends SpelItem {
     private void actie() {
         doolhof.level.timer.addTime(20);
         doolhof.level.timer.repaint();
+        doolhof.vijand.begin();
     }
 
     protected void paintComponent(Graphics g) {
