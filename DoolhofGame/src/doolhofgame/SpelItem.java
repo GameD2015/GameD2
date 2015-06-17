@@ -18,6 +18,7 @@ public class SpelItem extends JComponent {
     protected boolean isPickable = false;
     protected Vakje pad;
     protected Speler speler;
+    protected Doolhof doolhof;
   
     
 

@@ -19,9 +19,7 @@ public class Bazooka extends SpelItem {
 
     }
 
-    public void setPad(Pad pad) {
-        this.pad = pad;
-    }
+ 
 
     public Vakje getPad() {
         return pad;

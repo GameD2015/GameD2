@@ -21,7 +21,7 @@ public class Level extends JPanel implements KeyListener {
     protected Teller timer;
     private JLabel label, imgPage;
     private JButton opnieuw, startknop, sluiten;
-    private ImageIcon image1, image2;
+    private ImageIcon image1, image2, image3;
     private boolean keyIsenabled;
     private String instructies = "Pijltje Up = omhoog \nPijltje Down = omlaag \nPijltje Right = rechts \nPijltije Left = links \nS = schieten ";
 
@@ -32,6 +32,7 @@ public class Level extends JPanel implements KeyListener {
         setSize(900, 700);
         image1 = new ImageIcon(getClass().getResource("/resources/Slide1.png"));
         image2 = new ImageIcon(getClass().getResource("/resources/gameover.png"));
+        image3 = new ImageIcon(getClass().getResource("/resources/image3.png"));
         levelNr = 1;
         keyIsenabled = false;
         start();
@@ -125,12 +126,28 @@ public class Level extends JPanel implements KeyListener {
                 nieuwLevel();
 
             } else {
-                setLevelNr(1);
-                setGameOver(true);
-
+                this.removeAll();
+                this.repaint();
+                endGame();
+                this.repaint();
 
             }
         }
+    }
+
+    private void endGame() {
+        imgPage = new JLabel(image3);
+        imgPage.setBounds(0, 50, 900, 650);
+        imgPage.setVisible(true);
+        add(imgPage);
+
+        KnopHandler kh = new KnopHandler();
+        sluiten = new JButton("Sluiten");
+        sluiten.setForeground(Color.GREEN);
+        sluiten.setBackground(Color.BLACK);
+        sluiten.setBounds(400, 550, 80, 30);
+        sluiten.addActionListener(kh);
+        add(sluiten);
     }
 
     private void nieuwLevel() {
@@ -170,7 +187,7 @@ public class Level extends JPanel implements KeyListener {
 
     private void gameOver() {
 
-        
+
         imgPage = new JLabel(image2);
         imgPage.setBounds(0, 50, 900, 650);
         imgPage.setVisible(true);
@@ -191,11 +208,6 @@ public class Level extends JPanel implements KeyListener {
         sluiten.setBounds(500, 500, 80, 30);
         sluiten.addActionListener(kh);
         add(sluiten);
-
-
-
-
-
     }
 
     public void setEndLevel(Boolean endLevel) {
@@ -228,25 +240,28 @@ public class Level extends JPanel implements KeyListener {
     class KnopHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == startknop) {
-                JOptionPane.showMessageDialog(null, instructies, "Spel Instructies", JOptionPane.INFORMATION_MESSAGE);
-                timer.setTeller(30);
-                timer.setVisible(true);
-                startknop.setVisible(false);
-                label.setVisible(true);
-                opnieuw.setVisible(true);
-                doolhof.setVisible(true);
-                timer.startTimer();
-            }
-            if ((e.getSource() == startknop) && (levelNr > 1)) {
-                timer.setTeller(30);
-                timer.setVisible(true);
-                startknop.setVisible(false);
-                label.setVisible(true);
-                opnieuw.setVisible(true);
-                keyIsenabled = true;
-                timer.startTimer();
+            if (levelNr < 2) {
+                if (e.getSource() == startknop) {
+                    JOptionPane.showMessageDialog(null, instructies, "Spel Instructies", JOptionPane.INFORMATION_MESSAGE);
+                    timer.setTeller(30);
+                    timer.setVisible(true);
+                    startknop.setVisible(false);
+                    label.setVisible(true);
+                    opnieuw.setVisible(true);
+                    doolhof.setVisible(true);
+                    timer.startTimer();
+                }
+            } else {
+                if (e.getSource() == startknop) {
+                    timer.setTeller(30);
+                    timer.setVisible(true);
+                    startknop.setVisible(false);
+                    label.setVisible(true);
+                    opnieuw.setVisible(true);
+                    keyIsenabled = true;
+                    timer.startTimer();
 
+                }
             }
             if (e.getSource() == opnieuw) {
                 removeAll();

@@ -15,15 +15,22 @@ import javax.swing.ImageIcon;
  * @author Karen
  */
 public class Helper extends SpelItem {
+ 
 
     public Helper() {
         image = new ImageIcon(getClass().getResource("/resources/imgHelp2.png")).getImage();
+    }
+    
+    public Helper(Doolhof doolhof){
+        image = new ImageIcon(getClass().getResource("/resources/imgHelp2.png")).getImage();
+        this.doolhof = doolhof;
     }
 
     @Override
     public void voerActie() {
         super.voerActie();
         actie();
+        doolhof.vijand.begin();
     }
 
     public void actie() {
@@ -59,9 +66,6 @@ public class Helper extends SpelItem {
             }
         }
 
-    }
-    public void setPad(Pad pad) {
-        this.pad = pad;
     }
 
     public Vakje getPad() {

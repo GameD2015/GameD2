@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  */
 public class ValsSpeler extends SpelItem {
 
-    private Doolhof doolhof;
+ 
 
     public ValsSpeler() {
         image = new ImageIcon(getClass().getResource("/resources/clockY.png")).getImage();
@@ -35,7 +35,7 @@ public class ValsSpeler extends SpelItem {
     private void actie() {
         doolhof.level.timer.addTime(20);
         doolhof.level.timer.repaint();
-        doolhof.vijand.begin();
+        
     }
 
     protected void paintComponent(Graphics g) {
