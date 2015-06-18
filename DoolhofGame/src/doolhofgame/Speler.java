@@ -73,9 +73,13 @@ public class Speler extends JComponent {
         Vakje buur = getBuur(d);
         if (canMove(buur)) {
             if (buur.getSpelitem() != null) {
-                raakSpelItem(buur);
+                if (!(buur.getSpelitem() instanceof Vijand)) {
+                    raakSpelItem(buur);
+                    swapPad(pad, buur);
+                }
+            } else {
+                swapPad(pad, buur);
             }
-            swapPad(pad, buur);
 
         }
 

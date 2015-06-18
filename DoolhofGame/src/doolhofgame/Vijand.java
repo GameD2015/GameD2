@@ -49,7 +49,7 @@ public class Vijand extends SpelItem implements Runnable {
     @Override
     public void voerActie() {
         super.voerActie();
-        stop();
+
 
     }
 
@@ -88,12 +88,14 @@ public class Vijand extends SpelItem implements Runnable {
                             SpelItem spelitem = vk.getSpelitem();
                             swapPad(this.pad, vk, spelitem);
                         } else {
+
                             swapPad(this.pad, vk, null);
+
                         }
                         slaap(delay);
                         if (this.pad.getSpeler() != null) {
                             doorgaan = false;
-                            // doolhof.level.setGameOver(true);
+                            this.doolhof.setSpeler(null);
                         }
 
                     }

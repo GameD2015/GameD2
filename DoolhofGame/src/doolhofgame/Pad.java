@@ -48,7 +48,7 @@ public class Pad extends Vakje {
             image = speler.getImage();
         } else {
             image = new ImageIcon(getClass().getResource("/resources/pad.png")).getImage();
-        }
+                    }
     }
 
     @Override

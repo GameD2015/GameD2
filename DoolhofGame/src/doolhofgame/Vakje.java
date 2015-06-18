@@ -40,6 +40,7 @@ public class Vakje extends JComponent {
 
     public void setSpeler(Speler speler) {
         this.speler = speler;
+        
     }
 
     public Speler getSpeler() {

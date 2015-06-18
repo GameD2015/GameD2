@@ -38,11 +38,11 @@ public class Doolhof extends JPanel {
 
     }
 
-//    public void setSpeler(Speler speler) {
-//        if(speler == null){
-//            level.setGameOver(true);
-//        }
-//    }
+    public void setSpeler(Speler speler) {
+        if(speler == null){
+            level.setGameOver(true);
+        }
+    }
 //    
 //    
 //
